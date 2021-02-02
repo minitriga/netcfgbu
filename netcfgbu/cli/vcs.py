@@ -3,6 +3,7 @@ import click
 from netcfgbu import config as _config
 from netcfgbu.vcs import git
 from netcfgbu.logger import stop_aiologging
+from netcfgbu.plugins import Plugin, load_plugins
 
 from .root import cli, get_spec_nameorfirst, opt_config_file
 
@@ -72,6 +73,7 @@ def cli_vcs_save(ctx, **cli_opts):
     tag by default is the timestamp in the form of
     "<year><month><day>_<hour><minute><second>"
     """
+    load_plugins(ctx.obj["app_cfg"].defaults.plugins_dir)
     git.vcs_save(
         ctx.obj["vcs_spec"],
         repo_dir=ctx.obj["app_cfg"].defaults.configs_dir,

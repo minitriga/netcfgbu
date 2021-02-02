@@ -6,6 +6,7 @@ from netcfgbu.os_specs import make_host_connector
 from netcfgbu.logger import get_logger, stop_aiologging
 from netcfgbu.aiofut import as_completed
 from netcfgbu import jumphosts
+from netcfgbu.plugins import Plugin, load_plugins
 
 from .root import (
     cli,
@@ -15,7 +16,6 @@ from .root import (
     opt_batch,
     opt_debug_ssh,
 )
-
 
 from .report import Report
 
@@ -49,10 +49,12 @@ def exec_backup(app_cfg, inventory_recs):
                 res = task.result()
                 ok = res is True
                 report.task_results[ok].append((rec, res))
+                Plugin.run_backup_success(rec, res)
 
             except (asyncio.TimeoutError, OSError) as exc:
                 ok = False
                 report.task_results[False].append((rec, exc))
+                Plugin.run_backup_failed(rec, exc)
 
             except Exception as exc:
                 ok = False
@@ -67,6 +69,7 @@ def exec_backup(app_cfg, inventory_recs):
     report.stop_timing()
     stop_aiologging()
     report.print_report()
+    Plugin.run_report(report)
 
 
 @cli.command(name="backup", cls=WithInventoryCommand)
@@ -79,4 +82,5 @@ def cli_backup(ctx, **_cli_opts):
     """
     Backup network configurations.
     """
+    load_plugins(ctx.obj["app_cfg"].defaults.plugins_dir)
     exec_backup(app_cfg=ctx.obj["app_cfg"], inventory_recs=ctx.obj["inventory_recs"])

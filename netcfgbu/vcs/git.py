@@ -36,6 +36,7 @@ import pexpect
 
 from netcfgbu.logger import get_logger
 from netcfgbu.config_model import GitSpec
+from netcfgbu.plugins import Plugin
 
 git_bin = "git"
 
@@ -66,6 +67,7 @@ def vcs_save(gh_cfg: GitSpec, repo_dir: Path, tag_name: Optional[str] = None) ->
     output = ghr.run("status")
     if "nothing to commit" in output:
         logr.info("VCS no changes, skipping")
+        Plugin.run_git_report(success=False, tag_name=tag_name)
         return False
 
     logr.info(f"VCS saving changes, tag={tag_name}")
@@ -81,6 +83,7 @@ def vcs_save(gh_cfg: GitSpec, repo_dir: Path, tag_name: Optional[str] = None) ->
     for cmd, req_auth in commands:
         ghr.run(cmd, req_auth)
 
+    Plugin.run_git_report(success=True, tag_name=tag_name)
     return True
 
 
