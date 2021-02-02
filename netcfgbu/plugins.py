@@ -38,7 +38,7 @@ class Plugin(object):
     def git_report(success: bool, tag_name: str):
         pass
 
-    def run_backup_failed(rec: dict, exc:str):
+    def run_backup_failed(rec: dict, exc: str):
         tasks = _registered_plugins[_PLUGIN_NAME].get("backup") or Plugin
         if isinstance(tasks, list):
             for task in tasks:
@@ -47,7 +47,7 @@ class Plugin(object):
             tasks.backup_failed(rec, exc)
 
 
-    def run_backup_success(rec: dict, exc:str):
+    def run_backup_success(rec: dict, res: str):
         tasks = _registered_plugins[_PLUGIN_NAME].get("backup") or Plugin
         if isinstance(tasks, list):
             for task in tasks:
