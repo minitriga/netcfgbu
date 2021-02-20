@@ -226,6 +226,21 @@ def test_config_pass_noexistdir(tmpdir, netcfgbu_envars, monkeypatch):
     assert configs_dir.exists()
 
 
+def test_plugins_pass_noexistdir(tmpdir, netcfgbu_envars, monkeypatch):
+    """
+    Test use-case where the provided configs-dir directory does not
+    exist in the configuration; but as a result the configs-dir is
+    created.
+    """
+    dirpath = tmpdir.join("dummy-dir")
+    monkeypatch.setenv("NETCFGBU_PLUGINSDIR", str(dirpath))
+    app_cfg = load()
+
+    plugins_dir: Path = app_cfg.defaults.plugins_dir
+    assert plugins_dir == dirpath
+    assert plugins_dir.exists()
+
+
 def test_config_pass_asfilepath(request):
     """
     Test use-case where the config is provided as a filepath, and the file exists.

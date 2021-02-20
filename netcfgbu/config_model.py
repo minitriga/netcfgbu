@@ -106,6 +106,8 @@ class Defaults(NoExtraBaseModel, BaseSettings):
 
     @validator("plugins_dir")
     def _plugins_dir(cls, value):  # noqa
+        if value == os.getenv("PWD") and "/plugins" not in value:
+            value = value + "/plugins"
         return Path(value).absolute()
 
 

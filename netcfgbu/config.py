@@ -58,4 +58,8 @@ def load(*, filepath=None, fileio=None) -> AppConfig:
     if not configs_dir.is_dir():
         configs_dir.mkdir()
 
+    plugins_dir: Path = cfg_obj.defaults.plugins_dir
+    if not plugins_dir.is_dir():
+        plugins_dir.mkdir()
+
     return cfg_obj

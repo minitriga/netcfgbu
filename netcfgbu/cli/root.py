@@ -111,11 +111,18 @@ opt_inventory = click.option(
 )
 
 opt_limits = click.option(
-    "--limit", "-l", "--include", multiple=True, help="limit/include in inventory",
+    "--limit",
+    "-l",
+    "--include",
+    multiple=True,
+    help="limit/include in inventory",
 )
 
 opt_excludes = click.option(
-    "--exclude", "-e", multiple=True, help="exclude from inventory",
+    "--exclude",
+    "-e",
+    multiple=True,
+    help="exclude from inventory",
 )
 
 

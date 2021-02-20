@@ -3,7 +3,7 @@ import click
 from netcfgbu import config as _config
 from netcfgbu.vcs import git
 from netcfgbu.logger import stop_aiologging
-from netcfgbu.plugins import Plugin, load_plugins
+from netcfgbu.plugins import load_plugins
 
 from .root import cli, get_spec_nameorfirst, opt_config_file
 

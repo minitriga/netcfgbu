@@ -66,7 +66,8 @@ SUMMARY: TOTAL={len(inventory_recs)}
 
     print(
         tabulate(
-            headers=field_names, tabular_data=[rec.values() for rec in inventory_recs],
+            headers=field_names,
+            tabular_data=[rec.values() for rec in inventory_recs],
         )
     )
 
