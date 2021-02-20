@@ -54,6 +54,14 @@ variable to the defaults section, for example:
 configs_dir = "$PROJ_DIR/configs"
 ```
 
+## Plugins Directory
+To change where the plugin files are stores you add the `plugins_dir` variable to the defaults section, for example:
+
+```toml
+[defaults]
+plugins_dir = "$PROJ_DIR/plugins"
+```
+
 ## Logging
 To enable logging you can defined the `[logging]` section in the configuration
 file. The format of this section is the standard Python logging module, as

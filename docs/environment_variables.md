@@ -11,6 +11,9 @@ Path to the `netcfgbu` inventory (CSV) file.
 **NETCFGBU_CONFIGSDIR**<br/>
 Directory where the network configuration backups will be stored.
 
+**NETCFGBU_PLUGINSDIR**<br/>
+Directory where `netcfgbu` plugins wil be stored.
+
 **NETCFGBU_DEFAULT_USERNAME**<br/>
 The default credential login user name.
 
