@@ -60,6 +60,7 @@ def exec_backup(app_cfg, inventory_recs):
                 ok = False
                 log.error(msg + f"FAILURE: {str(exc)}")
                 report.task_results[False].append((rec, exc))
+                Plugin.run_backup_failed(rec, exc)
 
             log.info(msg + ("PASS" if ok else "FALSE"))
 
